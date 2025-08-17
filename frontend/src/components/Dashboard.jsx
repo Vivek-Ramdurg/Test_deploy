@@ -43,7 +43,7 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h2 className="form-title">Dashboard Main</h2>
+        <h2 className="form-title">Dashboard Main </h2>
         <button onClick={handleLogout} style={{ width: 'auto', padding: '0.5rem 1rem' }}>Logout</button>
       </div>
       <form onSubmit={handleSubmit}>
