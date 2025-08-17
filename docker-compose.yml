@@ -14,7 +14,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-        backend:
+  backend:
     build: ./backend
     container_name: demo-backend
     restart: always
@@ -25,13 +25,13 @@ services:
       DB_USER: myuser
       DB_PASSWORD: mypassword
       DB_NAME: docker
-      DB_HOST: postgres      # service name → backend can talk to postgres
+      DB_HOST: postgres
       DB_PORT: 5432
       JWT_SECRET: your_secure_jwt_secret_here
     ports:
       - "5001:5001"
 
-      - frontend:
+  frontend:
     build: ./frontend
     container_name: demo-frontend
     restart: always
@@ -41,4 +41,4 @@ services:
       - "80:80"
 
 volumes:
-  postgres_data:  
+  postgres_data:
