@@ -1,34 +1,44 @@
 version: '3.8'
 
 services:
-  backend:
-    build: ./backend
-    restart: always
-    env_file: .env
-    ports:
-      - "5000:5000"
-    depends_on:
-      - postgres
-
-  frontend:
-    build: ./frontend
-    restart: always
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-
   postgres:
     image: postgres:16
+    container_name: demo-postgres
     restart: always
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: docker
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+        backend:
+    build: ./backend
+    container_name: demo-backend
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      PORT: 5001
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+      DB_NAME: docker
+      DB_HOST: postgres      # service name → backend can talk to postgres
+      DB_PORT: 5432
+      JWT_SECRET: your_secure_jwt_secret_here
+    ports:
+      - "5001:5001"
+
+      - frontend:
+    build: ./frontend
+    container_name: demo-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
 
 volumes:
-  pgdata:
+  postgres_data:  

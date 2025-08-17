@@ -21,7 +21,7 @@ function Register() {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/register', {
+       await axios.post(`${import.meta.env.VITE_API_URL}/api/register`,{
         username: formData.username,
         password: formData.password
       })

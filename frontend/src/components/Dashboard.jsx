@@ -25,7 +25,7 @@ function Dashboard() {
 
     try {
       const token = localStorage.getItem('token')
-      await axios.post('http://localhost:5000/api/user-data', formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/user-data`, formData, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setMessage('Data saved successfully!')
